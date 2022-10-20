@@ -15,9 +15,19 @@ class LinearFunction(Scene):
         rastucaLF[0][4].set_color(RED) # musia byť 2 [v prvej je neviem čo] , [v druhej je pozícia meneného písmena] - nastavím farbu na RED
         rastucaLF[0][7].set_color(RED) 
 
+        konkretnyVzorecLF = MathTex('{f: y = x*1}', font_size=50).to_edge(UL)
+        konkretnyVzorecLF[0][4].set_color(RED)
+        konkretnyVzorecLF[0][6].set_color(RED)
+
+
+
         arrow1 = Arrow(start=ORIGIN, end=DOWN, color=WHITE, buff=10).next_to(rastucaLF[0][4], DOWN)
         arrow2 = Arrow(start=ORIGIN, end=DOWN, color=WHITE, buff=10).next_to(rastucaLF[0][7], DOWN)
         arrows= Group(arrow1, arrow2)
+        arrow3 = Arrow(start=ORIGIN, end=DOWN, color=WHITE, buff=10).next_to(rastucaLF, DOWN)
+
+        konkretnyVzorecText = Text("Rastúca lineárna funkcia", font_size=25).next_to(arrow3, DOWN)
+
 
         cislaab = MathTex("{a, b \in R}").next_to(arrow2, DOWN).shift(LEFT*0.5)             # to /in je v dokumentacií pre symboly pre LaTex
         
@@ -63,7 +73,7 @@ class LinearFunction(Scene):
         x_label = suradnicovaOs.get_x_axis_label("x").next_to(suradnicovaOs)
         grid_labels = VGroup(x_label, y_label)
 
-       # suradnicovyBod = 
+       # self.play(*[FadeOut(mobj) for mobj in self.mobjects])  vsetky veci co som urobil z obrazovky zmiznu
 
     
         self.play(Write(text1))                                                                 # zobrazenie textu vytvoríme súradnicovú os
@@ -82,7 +92,11 @@ class LinearFunction(Scene):
         #self.add(bod3)
         self.add(bod1, bod2, bodkociarka1, grid_labels)
        
-
+        self.play(FadeOut(boxLinFunkcie,arrows, cislaab))
+        self.play(ClockwiseTransform(rastucaLF, konkretnyVzorecLF))
+        self.play(Write(arrow3))
+        self.play(Write(konkretnyVzorecText))
+        
         self.play(Create(linFunction))
 
         self.play(Write(text2))
