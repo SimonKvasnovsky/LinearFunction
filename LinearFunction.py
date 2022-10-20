@@ -15,9 +15,14 @@ class LinearFunction(Scene):
         rastucaLF[0][4].set_color(RED) # musia byť 2 [v prvej je neviem čo] , [v druhej je pozícia meneného písmena] - nastavím farbu na RED
         rastucaLF[0][7].set_color(RED) 
 
-        konkretnyVzorecLF = MathTex('{f: y = x*1}', font_size=50).to_edge(UL)
+        konkretnyVzorecLF = MathTex('{f: y = y * 1}', font_size=50).to_edge(UL).set_color(YELLOW)
         konkretnyVzorecLF[0][4].set_color(RED)
         konkretnyVzorecLF[0][6].set_color(RED)
+
+
+        rastucaHoreVzorecLF = MathTex('{f: y = y + 1}', font_size=50).to_edge(UL).set_color(YELLOW)
+        konstantnaVzorecLF = MathTex('{f: y = 1}', font_size=50).to_edge(UL).set_color(YELLOW)
+
 
 
 
@@ -67,8 +72,24 @@ class LinearFunction(Scene):
      
         bod2 = Dot(np.array([0, 0, 0]), color=YELLOW)
 
+        bod3 = Dot(suradnicovaOs.coords_to_point(0,1), color=YELLOW)
+        bodkociarka4 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(0,1))
+
+        bod4 = Dot(suradnicovaOs.coords_to_point(-2,-1), color=YELLOW)
+        bodkociarka4 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-2,-1))
+
+       #  bod5= Dot(suradnicovaOs.coords_to_point(0,1), color=YELLOW)
+       #  bodkociarka5 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(0,1))
+
+       #  bod6= Dot(suradnicovaOs.coords_to_point(1,0), color=YELLOW)
+       #  bodkociarka6 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,0))
+
         #  y: -2*y -3
-        linFunction = suradnicovaOs.plot(lambda y: y*1, x_range=[-4,10])
+        rastucaHoreGrafLF = suradnicovaOs.plot(lambda y: y + 1 * 1, x_range=[-5,4])
+        konkretnyGrafLF = suradnicovaOs.plot(lambda y: y*1, x_range=[-4,4])
+
+        konstantnaGrafLF = suradnicovaOs.plot(lambda y: 1 , x_range=[-8,8])
+
         y_label = suradnicovaOs.get_y_axis_label("y").shift(UP*0.1, LEFT)
         x_label = suradnicovaOs.get_x_axis_label("x").next_to(suradnicovaOs)
         grid_labels = VGroup(x_label, y_label)
@@ -88,18 +109,40 @@ class LinearFunction(Scene):
         self.play(FadeIn(arrows))
         self.play(Create(cislaab))
 
-        #self.add(bod1,bod2)
-        #self.add(bod3)
-        self.add(bod1, bod2, bodkociarka1, grid_labels)
+    
+        self.play(FadeIn(bod1, bod2, bodkociarka1, grid_labels))
        
         self.play(FadeOut(boxLinFunkcie,arrows, cislaab))
         self.play(ClockwiseTransform(rastucaLF, konkretnyVzorecLF))
+        self.play(Create(konkretnyGrafLF))
         self.play(Write(arrow3))
         self.play(Write(konkretnyVzorecText))
         
-        self.play(Create(linFunction))
-
+       
         self.play(Write(text2))
+        self.play(FadeOut(bod1, bod2, bodkociarka1)) 
+        self.play(FadeIn(bod3, bod4, bodkociarka4))
+        self.play(FadeOut(text2))
+        
+        self.play(FadeTransformPieces(konkretnyGrafLF, rastucaHoreGrafLF))
+
+        #POSUN FUNKCIE O +1 na Y-ovej osi
+        self.play(FadeOut(rastucaLF,arrow3))
+        self.play(ClockwiseTransform(konkretnyVzorecText, rastucaHoreVzorecLF))
+        self.wait()
+        
+        #self.play(FadeIn(bod5,bod6,bodkociarka5,bodkociarka6))
+        self.play(FadeOut(bod3, bod4, bodkociarka4,))
+
+        self.play(ClockwiseTransform(konkretnyVzorecText, konstantnaVzorecLF))
+   
+        self.play(ReplacementTransform(rastucaHoreGrafLF, konstantnaGrafLF))
+
+     
+
+        # Konstantna funkcia
+
+       
         
        
 
