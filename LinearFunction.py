@@ -15,15 +15,9 @@ class LinearFunction(Scene):
         rastucaLF[0][4].set_color(RED) # musia byť 2 [v prvej je neviem čo] , [v druhej je pozícia meneného písmena] - nastavím farbu na RED
         rastucaLF[0][7].set_color(RED) 
 
-        konkretnyVzorecLF = MathTex('{f: y = y * 1}', font_size=50).to_edge(UL).set_color(YELLOW)
+        konkretnyVzorecLF = MathTex('{f: y = 1x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
         konkretnyVzorecLF[0][4].set_color(RED)
-        konkretnyVzorecLF[0][6].set_color(RED)
-
-
-        rastucaHoreVzorecLF = MathTex('{f: y = y + 1}', font_size=50).to_edge(UL).set_color(YELLOW)
-        konstantnaVzorecLF = MathTex('{f: y = 1}', font_size=50).to_edge(UL).set_color(YELLOW)
-
-
+        konkretnyVzorecLF[0][7].set_color(RED)
 
 
         arrow1 = Arrow(start=ORIGIN, end=DOWN, color=WHITE, buff=10).next_to(rastucaLF[0][4], DOWN)
@@ -31,10 +25,17 @@ class LinearFunction(Scene):
         arrows= Group(arrow1, arrow2)
         arrow3 = Arrow(start=ORIGIN, end=DOWN, color=WHITE, buff=10).next_to(rastucaLF, DOWN)
 
-        konkretnyVzorecText = Text("Rastúca lineárna funkcia", font_size=25).next_to(arrow3, DOWN)
+        konstantnaLFVzorecText = Tex('Ak ' , '$a = 0 $' ,' je to konštantná lineárna funkcia', font_size=25).next_to(arrow3, DOWN).shift(RIGHT*0.65)
+        konstantnaLFVzorecText[1].set_color(RED).scale(1)
+        rastucaLFVzorecText = Tex('Ak ' , '$a > 0 $' ,' je to rastúca lineárna funkcia', font_size=25).next_to(arrow3, DOWN).shift(RIGHT*0.65)
+        rastucaLFVzorecText[1].set_color(RED).scale(1)
+        klesajucaVzorecText = Tex('Ak ' , '$a < 0 $' ,' je to klesajúca lineárna funkcia', font_size=25).next_to(arrow3, DOWN).shift(RIGHT*0.65)
+        klesajucaVzorecText[1].set_color(RED).scale(1)
 
 
-        cislaab = MathTex("{a, b \in R}").next_to(arrow2, DOWN).shift(LEFT*0.5)             # to /in je v dokumentacií pre symboly pre LaTex
+        cislaab = MathTex("{a, b \in R}").next_to(arrow2, DOWN).shift(LEFT*0.5)              # to /in je v dokumentacií pre symboly pre LaTex
+        cislaab[0][0].set_color(RED)
+        cislaab[0][2].set_color(RED)         
         
 
         text1 = Text("""Vytvoríme si novú súradnicovú os.""",  
@@ -64,31 +65,76 @@ class LinearFunction(Scene):
 
 
        # INY ZAPIS PRE ZISKANIE SURADNICE BODU bod2 = Dot(np.array([0, 0, 0]), color=YELLOW)
-
-        # TOTO BY MAL BYT (1,2) - to jest SURADNICE BODOV KTORE SA ZAPISU KU BODU annos[f"{1}{2}"] = TexMobject(f"({1}, {2})")
-        bod1 = Dot(suradnicovaOs.coords_to_point(2,2), color=YELLOW)
-        bodkociarka1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(2,2))
         
-     
-        bod2 = Dot(np.array([0, 0, 0]), color=YELLOW)
+        konkretnyGrafLFnula = suradnicovaOs.plot(lambda y: 0*y+0, x_range=[-4,4])
+       
 
-        bod3 = Dot(suradnicovaOs.coords_to_point(0,1), color=YELLOW)
-        bodkociarka4 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(0,1))
+        konkretnyVzorecLFnula = MathTex('{f: y = 0x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bodNula1 = Dot(suradnicovaOs.coords_to_point(2,0), color=YELLOW)
+        bodNula2 = Dot(suradnicovaOs.coords_to_point(-2,0), color=YELLOW)
+        konkretnyVzorecLFnula[0][4].set_color(RED)
+        konkretnyVzorecLFnula[0][7].set_color(RED)
 
-        bod4 = Dot(suradnicovaOs.coords_to_point(-2,-1), color=YELLOW)
-        bodkociarka4 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-2,-1))
+        konkretnyGrafLFplus1 = suradnicovaOs.plot(lambda y: 1*y+0, x_range=[-4,4])
+        konkretnyVzorecLFplus1 = MathTex('{f: y = 1x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bod1Plus1= Dot(suradnicovaOs.coords_to_point(1,1), color=YELLOW)
+        bodkociarka1Plus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,1))
+        bod2Plus1= Dot(suradnicovaOs.coords_to_point(-1,-1), color=YELLOW)
+        bodkociarka2Plus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,-1))
+        konkretnyVzorecLFplus1[0][4].set_color(RED)
+        konkretnyVzorecLFplus1[0][7].set_color(RED)
 
-       #  bod5= Dot(suradnicovaOs.coords_to_point(0,1), color=YELLOW)
-       #  bodkociarka5 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(0,1))
+        konkretnyGrafLFplus2 = suradnicovaOs.plot(lambda y: 2*y+0, x_range=[-4,4])
+        konkretnyVzorecLFplus2 = MathTex('{f: y = 2x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bod1Plus2= Dot(suradnicovaOs.coords_to_point(1,2), color=YELLOW)
+        bodkociarka1Plus2 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,2))
+        bod2Plus2= Dot(suradnicovaOs.coords_to_point(-1,-2), color=YELLOW)
+        bodkociarka2Plus2 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,-2))
+        konkretnyVzorecLFplus2[0][4].set_color(RED)
+        konkretnyVzorecLFplus2[0][7].set_color(RED)
 
-       #  bod6= Dot(suradnicovaOs.coords_to_point(1,0), color=YELLOW)
-       #  bodkociarka6 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,0))
+        konkretnyGrafLFplus3 = suradnicovaOs.plot(lambda y: 3*y+0, x_range=[-4,4])
+        konkretnyVzorecLFplus3 = MathTex('{f: y = 3x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
 
-        #  y: -2*y -3
-        rastucaHoreGrafLF = suradnicovaOs.plot(lambda y: y + 1 * 1, x_range=[-5,4])
-        konkretnyGrafLF = suradnicovaOs.plot(lambda y: y*1, x_range=[-4,4])
+        bod1Plus3= Dot(suradnicovaOs.coords_to_point(1,3), color=YELLOW)
+        bodkociarka1Plus3 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,3))
+        bod2Plus3= Dot(suradnicovaOs.coords_to_point(-1,-3), color=YELLOW)
+        bodkociarka2Plus3 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,-3))
 
-        konstantnaGrafLF = suradnicovaOs.plot(lambda y: 1 , x_range=[-8,8])
+        konkretnyVzorecLFplus3[0][4].set_color(RED)
+        konkretnyVzorecLFplus3[0][7].set_color(RED)
+
+        konkretnyGrafLFminus1 = suradnicovaOs.plot(lambda y: -1*y+0, x_range=[-4,4])
+        konkretnyVzorecLFminus1 = MathTex('{f: y = -1x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bod1Minus1= Dot(suradnicovaOs.coords_to_point(-1,1), color=YELLOW)
+        bodkociarka1Minus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,1))
+        bod2Minus1= Dot(suradnicovaOs.coords_to_point(1,-1), color=YELLOW)
+        bodkociarka2Minus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,-1))
+        konkretnyVzorecLFminus1[0][4].set_color(RED)
+        konkretnyVzorecLFminus1[0][5].set_color(RED)
+        konkretnyVzorecLFminus1[0][6].set_color(RED)
+
+        konkretnyGrafLFminus2 = suradnicovaOs.plot(lambda y: -2*y+0, x_range=[-4,4])
+        konkretnyVzorecLFminus2 = MathTex('{f: y = -2x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bod1Minus2= Dot(suradnicovaOs.coords_to_point(-1,2), color=YELLOW)
+        bodkociarka1Minus2 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,2))
+        bod2Minus2= Dot(suradnicovaOs.coords_to_point(1,-2), color=YELLOW)
+        bodkociarka2Minus2 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,-2))
+        konkretnyVzorecLFminus2[0][4].set_color(RED)
+        konkretnyVzorecLFminus2[0][5].set_color(RED)
+        konkretnyVzorecLFminus2[0][6].set_color(RED)
+
+        konkretnyGrafLFminus3 = suradnicovaOs.plot(lambda y: -3*y+0, x_range=[-4,4])
+        konkretnyVzorecLFminus3 = MathTex('{f: y = -3x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
+        bod1Minus3= Dot(suradnicovaOs.coords_to_point(-1,3), color=YELLOW)
+        bodkociarka1Minus3 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,3))
+        bod2Minus3= Dot(suradnicovaOs.coords_to_point(1,-3), color=YELLOW)
+        bodkociarka2Minus3 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,-3))
+        konkretnyVzorecLFminus3[0][4].set_color(RED)
+        konkretnyVzorecLFminus3[0][5].set_color(RED)
+        konkretnyVzorecLFminus3[0][6].set_color(RED)
+
+        
 
         y_label = suradnicovaOs.get_y_axis_label("y").shift(UP*0.1, LEFT)
         x_label = suradnicovaOs.get_x_axis_label("x").next_to(suradnicovaOs)
@@ -97,9 +143,10 @@ class LinearFunction(Scene):
        # self.play(*[FadeOut(mobj) for mobj in self.mobjects])  vsetky veci co som urobil z obrazovky zmiznu
 
     
-        self.play(Write(text1))                                                                 # zobrazenie textu vytvoríme súradnicovú os
-        self.play(Write(suradnicovaOs), run_time=3)                                                        # vytvorí nám súradnicovú os
-        self.play(FadeOut(text1))                                                               # nechám text zmiznúť
+        self.play(Write(text1))    
+        self.play(FadeOut(text1))                                                             
+        self.play(Write(suradnicovaOs), run_time=3)                                                       
+                                                                     
         
         self.play(Create(rastucaLF))  
         self.play(Create(boxLinFunkcie))                                                            
@@ -110,37 +157,74 @@ class LinearFunction(Scene):
         self.play(Create(cislaab))
 
     
-        self.play(FadeIn(bod1, bod2, bodkociarka1, grid_labels))
+        self.play(FadeIn(grid_labels))
        
         self.play(FadeOut(boxLinFunkcie,arrows, cislaab))
-        self.play(ClockwiseTransform(rastucaLF, konkretnyVzorecLF))
-        self.play(Create(konkretnyGrafLF))
+        #self.play(ReplacementTransform(rastucaLF, konkretnyVzorecLF))
+       # self.play(Create(konkretnyGrafLFplus1))
         self.play(Write(arrow3))
-        self.play(Write(konkretnyVzorecText))
+        #self.play(Write(konkretnyVzorecText))
         
        
         self.play(Write(text2))
-        self.play(FadeOut(bod1, bod2, bodkociarka1)) 
-        self.play(FadeIn(bod3, bod4, bodkociarka4))
         self.play(FadeOut(text2))
         
-        self.play(FadeTransformPieces(konkretnyGrafLF, rastucaHoreGrafLF))
+        #self.play(FadeTransformPieces(konkretnyGrafLFplus1, rastucaHoreGrafLF))
 
-        #POSUN FUNKCIE O +1 na Y-ovej osi
-        self.play(FadeOut(rastucaLF,arrow3))
-        self.play(ClockwiseTransform(konkretnyVzorecText, rastucaHoreVzorecLF))
-        self.wait()
+        #alwaysRedraw
+        self.play(Write(konstantnaLFVzorecText))
         
-        #self.play(FadeIn(bod5,bod6,bodkociarka5,bodkociarka6))
-        self.play(FadeOut(bod3, bod4, bodkociarka4,))
+        self.play(ReplacementTransform(rastucaLF,konkretnyVzorecLFnula ))
+        self.play(FadeIn(bodNula1, bodNula2))
+        self.play(Create(konkretnyGrafLFnula))
+        
+        #bod nula
+        self.play(FadeTransformPieces(konstantnaLFVzorecText, rastucaLFVzorecText))
+        self.play(ReplacementTransform(konkretnyVzorecLFnula,konkretnyVzorecLFplus1 ))
+        self.play(FadeOut(bodNula1, bodNula2))
 
-        self.play(ClockwiseTransform(konkretnyVzorecText, konstantnaVzorecLF))
-   
-        self.play(ReplacementTransform(rastucaHoreGrafLF, konstantnaGrafLF))
+        #bod plus1
+        self.play(FadeIn(bod1Plus1, bod2Plus1, bodkociarka1Plus1, bodkociarka2Plus1))
+        self.play(ReplacementTransform(konkretnyGrafLFnula, konkretnyGrafLFplus1))
+        self.play(ReplacementTransform(konkretnyVzorecLFplus1,konkretnyVzorecLFplus2 ))
+        self.play(FadeOut(bod1Plus1, bod2Plus1, bodkociarka1Plus1, bodkociarka2Plus1))
 
-     
+        #bod plus 2
+        self.play(FadeIn(bod1Plus2, bod2Plus2, bodkociarka1Plus2, bodkociarka2Plus2))
+        self.play(ReplacementTransform(konkretnyGrafLFplus1, konkretnyGrafLFplus2 ))
+        self.play(FadeOut(bod1Plus2, bod2Plus2, bodkociarka1Plus2, bodkociarka2Plus2))
 
-        # Konstantna funkcia
+        #bod plus 3
+        self.play(FadeIn(bod1Plus3, bod2Plus3, bodkociarka1Plus3, bodkociarka2Plus3))
+        self.play(ReplacementTransform(konkretnyGrafLFplus2, konkretnyGrafLFplus3 ))
+        self.play(ReplacementTransform(konkretnyVzorecLFplus2,konkretnyVzorecLFplus3 ))
+        self.play(FadeOut(bod1Plus3, bod2Plus3, bodkociarka1Plus3, bodkociarka2Plus3))
+
+       
+
+        #bod minus 1
+        self.play(FadeTransformPieces(rastucaLFVzorecText, klesajucaVzorecText))
+        self.play(ReplacementTransform(konkretnyVzorecLFplus3,konkretnyVzorecLFminus1 ))
+        self.play(FadeIn(bod1Minus1, bod2Minus1, bodkociarka1Minus1, bodkociarka2Minus1))
+        self.play(ReplacementTransform(konkretnyGrafLFplus3, konkretnyGrafLFminus1 ))
+        self.play(FadeOut(bod1Minus1, bod2Minus1, bodkociarka1Minus1, bodkociarka2Minus1))
+
+
+        self.play(ReplacementTransform(konkretnyVzorecLFminus1,konkretnyVzorecLFminus2 ))
+        self.play(FadeIn(bod1Minus2, bod2Minus2, bodkociarka1Minus2, bodkociarka2Minus2))
+        self.play(ReplacementTransform(konkretnyGrafLFminus1, konkretnyGrafLFminus2 ))
+        self.play(FadeOut(bod1Minus2, bod2Minus2, bodkociarka1Minus2, bodkociarka2Minus2))
+
+
+        self.play(ReplacementTransform(konkretnyVzorecLFminus2,konkretnyVzorecLFminus3 ))
+        self.play(FadeIn(bod1Minus3, bod2Minus3, bodkociarka1Minus3, bodkociarka2Minus3))
+        self.play(ReplacementTransform(konkretnyGrafLFminus2, konkretnyGrafLFminus3 ))
+        self.play(FadeOut(bod1Minus3, bod2Minus3, bodkociarka1Minus3, bodkociarka2Minus3))
+
+
+
+
+
 
        
         
