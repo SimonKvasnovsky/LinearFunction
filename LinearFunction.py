@@ -38,18 +38,17 @@ class LinearFunction(Scene):
         cislaab[0][2].set_color(RED)         
         
 
-        text1 = Text("""Vytvoríme si novú súradnicovú os.""",  
-        t2c={"súradnicovú os": BLUE},           # t2 asi znamená nejaké zobrazenie to (t2)- c   c-čko znamená asi color - mením farbu na BLUE ???
-        t2s={"súradnicovú os": ITALIC}          # t2 asi znamená nejaké zobrazenie to (t2) - s   s-ko znamená asi style - mením štýl na ITALIC ???
-        ).scale(0.7).next_to(rastucaLF)         # scale je veľkosť a zobrazujem ju vedľa textu rastucaLF
+        text1 = Text("Lineárna Funkcia",  
+        t2c={"Lineárna": YELLOW, "Funkcia":RED}           
+        )       
         
         text2 = Text("""Na zostrojenie nám stačia 2 body """, font_size=30).to_corner(DR)
         text2[22].set_color(RED)
 
-        boxLinFunkcie = SurroundingRectangle(rastucaLF, color=WHITE, buff=0.3)               # vytváram obldĺžnik, ktorý bude obkresľovať vzorec
+        boxLinFunkcie = SurroundingRectangle(rastucaLF, color=WHITE, buff=0.3)              
                                     
         
-        suradnicovaOs = Axes(                                                                 # vytvorim súradnicovú os s nejakými parametrami
+        suradnicovaOs = Axes(                                                                 
             x_range=[-8,8,1],
             y_range=[-8,8,1],
             tips=False,
@@ -75,7 +74,7 @@ class LinearFunction(Scene):
         konkretnyVzorecLFnula[0][4].set_color(RED)
         konkretnyVzorecLFnula[0][7].set_color(RED)
 
-        konkretnyGrafLFplus1 = suradnicovaOs.plot(lambda y: 1*y+0, x_range=[-4,4])
+        konkretnyGrafLFplus1 = suradnicovaOs.plot(lambda y: 1*y+0, x_range=[-6,6])
         konkretnyVzorecLFplus1 = MathTex('{f: y = 1x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
         bod1Plus1= Dot(suradnicovaOs.coords_to_point(1,1), color=YELLOW)
         bodkociarka1Plus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(1,1))
@@ -104,7 +103,7 @@ class LinearFunction(Scene):
         konkretnyVzorecLFplus3[0][4].set_color(RED)
         konkretnyVzorecLFplus3[0][7].set_color(RED)
 
-        konkretnyGrafLFminus1 = suradnicovaOs.plot(lambda y: -1*y+0, x_range=[-4,4])
+        konkretnyGrafLFminus1 = suradnicovaOs.plot(lambda y: -1*y+0, x_range=[-4,6])
         konkretnyVzorecLFminus1 = MathTex('{f: y = -1x+0}', font_size=50).to_edge(UL).set_color(YELLOW)
         bod1Minus1= Dot(suradnicovaOs.coords_to_point(-1,1), color=YELLOW)
         bodkociarka1Minus1 = suradnicovaOs.get_lines_to_point(suradnicovaOs.c2p(-1,1))
@@ -181,16 +180,17 @@ class LinearFunction(Scene):
 
         
 
-        y_label = suradnicovaOs.get_y_axis_label("y").shift(UP, RIGHT)
+        y_label = suradnicovaOs.get_y_axis_label("y").next_to(UP*3.6, RIGHT*1.6)
         x_label = suradnicovaOs.get_x_axis_label("x").next_to(suradnicovaOs)
         grid_labels = VGroup(x_label, y_label)
 
        # self.play(*[FadeOut(mobj) for mobj in self.mobjects])  vsetky veci co som urobil z obrazovky zmiznu
 
     
-        self.play(Write(text1))    
-        self.play(FadeOut(text1))                                                             
-        self.play(Write(suradnicovaOs), run_time=3)                                                    
+        self.play(Write(text1))
+        self.play(Unwrite(text1))                                                             
+        self.play(Write(suradnicovaOs), run_time=3)  
+        self.play(FadeIn(grid_labels))                                                  
                                                                      
         
         self.play(Create(rastucaLF))  
@@ -200,21 +200,17 @@ class LinearFunction(Scene):
         
         self.play(FadeIn(arrows))
         self.play(Create(cislaab))
+        self.wait()
 
     
-        self.play(FadeIn(grid_labels))
-       
         self.play(FadeOut(boxLinFunkcie,arrows, cislaab))
-        #self.play(ReplacementTransform(rastucaLF, konkretnyVzorecLF))
-       # self.play(Create(konkretnyGrafLFplus1))
         self.play(Write(arrow3))
-        #self.play(Write(konkretnyVzorecText))
+  
         
        
         self.play(Write(text2))
         self.play(FadeOut(text2))
         
-        #self.play(FadeTransformPieces(konkretnyGrafLFplus1, rastucaHoreGrafLF))
 
         #alwaysRedraw
         self.play(Write(konstantnaLFVzorecText))
